@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PegawaiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [BaseController::class,'index']);
 Route::get('/base', [BaseController::class,'base']);
 Route::post('/login', [BaseController::class,'login']);
-Route::post('/logout', [BaseController::class,'logout']);
+Route::post('/logout', [BaseController::class,'logout'])->name('logout');
+
+Route::prefix('pegawai')->group(function () {
+    Route::get('/', [PegawaiController::class, 'index'])->name('pegawai.index');
+    Route::post('/create', [PegawaiController::class, 'store'])->name('pegawai.create');
+    Route::put('/update/{id}', [PegawaiController::class, 'update'])->name('pegawai.update');
+    Route::delete('/delete/{id}', [PegawaiController::class, 'destroy'])->name('pegawai.delete');
+});
